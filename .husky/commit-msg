@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# 提交消息保存时
+# 校验提交信息格式
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx --no-install commitlint --edit "$1"

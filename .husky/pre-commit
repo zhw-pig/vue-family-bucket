@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# 提交消息输入前
+# 代码风格检查，单元测试
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx lint-staged

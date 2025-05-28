@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+# 推送到远程仓库前
+# 集成测试，构建验证，
+# 1. 检查分支一致性:【提交分支和远程分支】
+# 2. 过滤敏感性文件push，如环境变量文件
+
+
+while read local_ref local_sha remote_ref remote_sha
+do
+    # 当前分支
+    branch=$(git rev-parse --abbrev-ref HEAD)
+	# 远程分支，此处可根据分支名进行截取
+	remote_ref=${remote_ref}
+
+	if [ ${branch} != ${remote_ref} ]
+	then
+		echo "
+			当前分支${branch}和要推送到目标分支${remote_ref}，分支名不一致
+		"
+		exit 1
+	fi
+done
+
+exit 0
+
+
+
+# 使用了Shell脚本来执行自定义操作
