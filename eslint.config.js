@@ -9,10 +9,9 @@ export default antfu({
     typescript: true,
     vue: true,
     stylistic: {
-        // @stylistic
-        pluginName: '@typescript-eslint/eslint-plugin',
         indent: 4, // 4, or 'tab'
         quotes: 'single', // or 'double'
+        'vue/script-indent': 4,
     },
     // 保存删除未引入的代码
     // isInEditor: false,
