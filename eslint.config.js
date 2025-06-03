@@ -1,5 +1,4 @@
 import antfu from '@antfu/eslint-config'
-// import tsPlugin from '@typescript-eslint/eslint-plugin'
 
 export default antfu({
     // @stylistic/eslint-plugin-plus
@@ -13,9 +12,6 @@ export default antfu({
         indent: 4, // 4, or 'tab'
         quotes: 'single', // or 'double'
     },
-    // plugins: {
-    //     '@typescript-eslint': tsPlugin, // 确保插件加载
-    // },
     // 保存删除未引入的代码
     // isInEditor: false,
     // 9x版本 忽略文件这种配置方式 废弃掉eslintignore
@@ -41,6 +37,9 @@ export default antfu({
         'no-console': 'off',
         'no-debugger': 'error',
         '@typescript-eslint/no-explicit-any': 'error', // 禁止显式使用 any 类型
-        '@/indent': ['error', 4], // 强制 4 空格缩进
+        indent: 'off', // 关闭 ESLint 基础缩进规则
+        // 引出的问题：Key "rules": Key "ts/indent": Could not find "indent" in plugin "ts". Did you mean "@/indent"?
+        // '@typescript-eslint/indent': ['error', 4], // 强制 4 空格缩进,
+        'vue/html-indent': ['error', 4], // 调整 Vue 模板的缩进
     },
 })
