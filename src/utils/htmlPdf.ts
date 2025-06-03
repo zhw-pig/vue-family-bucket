@@ -33,8 +33,7 @@ function calculateInsertHeightHandler(element: HTMLElement, localNoTableHeight: 
     const multiple = Math.ceil((element.offsetTop + element.offsetHeight) / pageHeight)
     if (isTableRow(element)) {
         return multiple * pageHeight - (element.offsetTop + element.offsetHeight + localNoTableHeight) + 20
-    }
-    else {
+    } else {
         return multiple * pageHeight - (element.offsetTop + element.offsetHeight)
     }
 }
@@ -43,15 +42,14 @@ function calculateInsertHeightHandler(element: HTMLElement, localNoTableHeight: 
 function pdfSplitPageHandler(htmlChildren: HTMLElement[]) {
     const pageHeight = calculatePageHeightHandler(277)
     let localNoTableHeight = 0
-    const nodesToInsert: { node: HTMLElement, position: Node | null }[] = []
+    const nodesToInsert: { node: HTMLElement; position: Node | null }[] = []
     htmlChildren.forEach((element, index) => {
         const nextNode = htmlChildren[index + 1]
         const totalHeight = element.offsetTop + element.offsetHeight + localNoTableHeight
         const isNeedSplitPage = (() => {
             if (isTableRow(element)) {
                 return totalHeight < pageHeight && nextNode && nextNode.offsetTop + nextNode.offsetHeight + localNoTableHeight > pageHeight
-            }
-            else {
+            } else {
                 localNoTableHeight += element.clientHeight
                 return element.offsetTop + element.offsetHeight < pageHeight && nextNode && nextNode.offsetTop + nextNode.offsetHeight > pageHeight
             }
@@ -70,8 +68,7 @@ function pdfSplitPageHandler(htmlChildren: HTMLElement[]) {
         const parent = node.parentNode
         if (parent && position) {
             parent.insertBefore(node, position)
-        }
-        else if (parent) {
+        } else if (parent) {
             parent.appendChild(node)
         }
     })
@@ -109,9 +106,11 @@ async function generatePdfByCanvasHandler(canvas: HTMLCanvasElement) {
         const page: HTMLCanvasElement = document.createElement('canvas')
         page.width = canvas.width
         page.height = Math.min(imgHeight, canvas.height - renderedHeight)
-        page
-            .getContext('2d')
-            ?.putImageData(ctx?.getImageData(0, renderedHeight, canvas.width, Math.min(imgHeight, canvas.height - renderedHeight)) as ImageData, 0, 0)
+        page.getContext('2d').putImageData(
+            ctx?.getImageData(0, renderedHeight, canvas.width, Math.min(imgHeight, canvas.height - renderedHeight)) as ImageData,
+            0,
+            0,
+        )
         pdf.addImage(page.toDataURL('image/jpeg', 1.0), 'JPEG', 10, 10, a4w, Math.min(a4h, (a4w * page.height) / page.width))
         renderedHeight += imgHeight
         if (renderedHeight < canvas.height) {
@@ -124,7 +123,7 @@ async function generatePdfByCanvasHandler(canvas: HTMLCanvasElement) {
 // 清理临时元素，避免内存泄露
 function cleanup() {
     const tempElements = document.querySelectorAll('.divRemove')
-    tempElements.forEach(el => el.remove())
+    tempElements.forEach((el) => el.remove())
 }
 
 export async function htmlPdf(title: string, html: HTMLElement, htmlChildren: HTMLElement[]) {
