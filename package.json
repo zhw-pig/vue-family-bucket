@@ -79,8 +79,8 @@
     },
     "lint-staged": {
         "*.{js,jsx,vue,md,json}": [
-            "npm run batch:prettier",
             "npm run lint:eslint",
+            "npm run batch:prettier",
             "npm run lint:stylelint"
         ]
     }
