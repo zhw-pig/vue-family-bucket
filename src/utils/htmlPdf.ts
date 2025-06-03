@@ -106,11 +106,9 @@ async function generatePdfByCanvasHandler(canvas: HTMLCanvasElement) {
         const page: HTMLCanvasElement = document.createElement('canvas')
         page.width = canvas.width
         page.height = Math.min(imgHeight, canvas.height - renderedHeight)
-        page.getContext('2d').putImageData(
-            ctx?.getImageData(0, renderedHeight, canvas.width, Math.min(imgHeight, canvas.height - renderedHeight)) as ImageData,
-            0,
-            0,
-        )
+        page
+            .getContext('2d')
+            ?.putImageData(ctx?.getImageData(0, renderedHeight, canvas.width, Math.min(imgHeight, canvas.height - renderedHeight)) as ImageData, 0, 0)
         pdf.addImage(page.toDataURL('image/jpeg', 1.0), 'JPEG', 10, 10, a4w, Math.min(a4h, (a4w * page.height) / page.width))
         renderedHeight += imgHeight
         if (renderedHeight < canvas.height) {
