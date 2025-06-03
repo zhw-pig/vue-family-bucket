@@ -9,7 +9,7 @@ export default antfu({
     typescript: true,
     vue: true,
     stylistic: {
-        indent: 4, // 4, or 'tab'
+        // indent: 4, // 4, or 'tab'
         quotes: 'single', // or 'double'
     },
     // 保存删除未引入的代码
@@ -37,5 +37,6 @@ export default antfu({
         'no-console': 'off',
         'no-debugger': 'error',
         '@typescript-eslint/no-explicit-any': 'error', // 禁止显式使用 any 类型
+        indent: 'off',
     },
 })
