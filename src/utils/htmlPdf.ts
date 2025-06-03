@@ -9,7 +9,7 @@ import JsPDF from 'jspdf' // 将Canvas内容分页转为PDF
 function calculatePageHeightHandler(width: number) {
     return Math.min(
         277, // A4高度
-        Math.floor((width * 277) / 190)
+        Math.floor((width * 277) / 190),
     )
 }
 
@@ -33,7 +33,8 @@ function calculateInsertHeightHandler(element: HTMLElement, localNoTableHeight: 
     const multiple = Math.ceil((element.offsetTop + element.offsetHeight) / pageHeight)
     if (isTableRow(element)) {
         return multiple * pageHeight - (element.offsetTop + element.offsetHeight + localNoTableHeight) + 20
-    } else {
+    }
+    else {
         return multiple * pageHeight - (element.offsetTop + element.offsetHeight)
     }
 }
@@ -42,14 +43,15 @@ function calculateInsertHeightHandler(element: HTMLElement, localNoTableHeight: 
 function pdfSplitPageHandler(htmlChildren: HTMLElement[]) {
     const pageHeight = calculatePageHeightHandler(277)
     let localNoTableHeight = 0
-    const nodesToInsert: { node: HTMLElement; position: Node | null }[] = []
+    const nodesToInsert: { node: HTMLElement, position: Node | null }[] = []
     htmlChildren.forEach((element, index) => {
         const nextNode = htmlChildren[index + 1]
         const totalHeight = element.offsetTop + element.offsetHeight + localNoTableHeight
         const isNeedSplitPage = (() => {
             if (isTableRow(element)) {
                 return totalHeight < pageHeight && nextNode && nextNode.offsetTop + nextNode.offsetHeight + localNoTableHeight > pageHeight
-            } else {
+            }
+            else {
                 localNoTableHeight += element.clientHeight
                 return element.offsetTop + element.offsetHeight < pageHeight && nextNode && nextNode.offsetTop + nextNode.offsetHeight > pageHeight
             }
@@ -68,7 +70,8 @@ function pdfSplitPageHandler(htmlChildren: HTMLElement[]) {
         const parent = node.parentNode
         if (parent && position) {
             parent.insertBefore(node, position)
-        } else if (parent) {
+        }
+        else if (parent) {
             parent.appendChild(node)
         }
     })
@@ -121,7 +124,7 @@ async function generatePdfByCanvasHandler(canvas: HTMLCanvasElement) {
 // 清理临时元素，避免内存泄露
 function cleanup() {
     const tempElements = document.querySelectorAll('.divRemove')
-    tempElements.forEach((el) => el.remove())
+    tempElements.forEach(el => el.remove())
 }
 
 export async function htmlPdf(title: string, html: HTMLElement, htmlChildren: HTMLElement[]) {
