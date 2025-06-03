@@ -11,7 +11,7 @@ export default antfu({
     stylistic: {
         indent: 4, // 4, or 'tab'
         quotes: 'single', // or 'double'
-        'vue/script-indent': 4,
+        'vue/html-comment-indent': 4,
     },
     // 保存删除未引入的代码
     // isInEditor: false,
