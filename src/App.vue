@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import { ConfigProvider } from 'ant-design-vue'
+</script>
+
 <template>
     <ConfigProvider>
         <AppProvider>
@@ -5,10 +9,3 @@
         </AppProvider>
     </ConfigProvider>
 </template>
-
-<script lang="ts" setup>
-    import { ConfigProvider } from 'ant-design-vue'
-
-    const num: string = 123
-    console.log(num)
-</script>

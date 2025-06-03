@@ -3,4 +3,7 @@
 # 代码风格检查，单元测试
 . "$(dirname -- "$0")/_/husky.sh"
 
+# 检查 TypeScript 类型
+# tsc --noEmit 会检查整个项目，速度较慢。可以用 lint-staged 只检查​​暂存区（staged）的文件​​，提高效率。
+# npx tsc --noEmit
 npx lint-staged

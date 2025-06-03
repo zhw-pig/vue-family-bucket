@@ -6,21 +6,21 @@ import html2Canvas from 'html2canvas' // 将DOM 树渲染为Canvas
 import JsPDF from 'jspdf' // 将Canvas内容分页转为PDF
 
 // 计算pdf页面高度
-const calculatePageHeightHandler = (width: number) => {
+function calculatePageHeightHandler(width: number) {
     return Math.min(
         277, // A4高度
         Math.floor((width * 277) / 190)
     )
 }
 
-const getFooterElement = (remainingHeight: string | number, fillingHeight = 0) => {
+function getFooterElement(remainingHeight: string | number, fillingHeight = 0) {
     const newNode = document.createElement('div')
     newNode.style.background = '#ffffff'
     newNode.style.width = 'calc(100% + 8px)'
     newNode.style.marginLeft = '-4px'
     newNode.style.marginBottom = '0px'
     newNode.classList.add('divRemove')
-    newNode.style.height = +remainingHeight + fillingHeight + 'px'
+    newNode.style.height = `${+remainingHeight + fillingHeight}px`
     return newNode
 }
 
@@ -28,7 +28,7 @@ const getFooterElement = (remainingHeight: string | number, fillingHeight = 0) =
 const isTableRow = (element: HTMLElement) => element.localName === 'tr'
 
 // 辅助函数：计算插入元素的高度
-const calculateInsertHeightHandler = (element: HTMLElement, localNoTableHeight: number) => {
+function calculateInsertHeightHandler(element: HTMLElement, localNoTableHeight: number) {
     const pageHeight = calculatePageHeightHandler(277)
     const multiple = Math.ceil((element.offsetTop + element.offsetHeight) / pageHeight)
     if (isTableRow(element)) {
@@ -39,7 +39,7 @@ const calculateInsertHeightHandler = (element: HTMLElement, localNoTableHeight: 
 }
 
 // pdf文件分页处理
-const pdfSplitPageHandler = (htmlChildren: HTMLElement[]) => {
+function pdfSplitPageHandler(htmlChildren: HTMLElement[]) {
     const pageHeight = calculatePageHeightHandler(277)
     let localNoTableHeight = 0
     const nodesToInsert: { node: HTMLElement; position: Node | null }[] = []
@@ -75,7 +75,7 @@ const pdfSplitPageHandler = (htmlChildren: HTMLElement[]) => {
 }
 
 // html生成canvas
-const generateCanvasByHTMLHandler = async (html: HTMLElement): Promise<HTMLCanvasElement> => {
+async function generateCanvasByHTMLHandler(html: HTMLElement): Promise<HTMLCanvasElement> {
     return new Promise((resolve, reject) => {
         html2Canvas(html, {
             useCORS: true, // 解决跨域图片问题
@@ -88,14 +88,14 @@ const generateCanvasByHTMLHandler = async (html: HTMLElement): Promise<HTMLCanva
 }
 
 // 生成pdf文件名称通过title
-const generateFileNameByTitleHandler = (title: string) => {
+function generateFileNameByTitleHandler(title: string) {
     if (title) {
         return `${title}.pdf`
     }
     return `${new Date().getTime()}.pdf`
 }
 // canvas生成pdf
-const generatePdfByCanvasHandler = async (canvas: HTMLCanvasElement) => {
+async function generatePdfByCanvasHandler(canvas: HTMLCanvasElement) {
     const pdf = new JsPDF('p', 'mm', 'a4')
     const ctx = canvas.getContext('2d')
     const a4w = 190
@@ -106,11 +106,9 @@ const generatePdfByCanvasHandler = async (canvas: HTMLCanvasElement) => {
         const page: HTMLCanvasElement = document.createElement('canvas')
         page.width = canvas.width
         page.height = Math.min(imgHeight, canvas.height - renderedHeight)
-        page.getContext('2d').putImageData(
-            ctx?.getImageData(0, renderedHeight, canvas.width, Math.min(imgHeight, canvas.height - renderedHeight)) as ImageData,
-            0,
-            0
-        )
+        page
+            .getContext('2d')
+            ?.putImageData(ctx?.getImageData(0, renderedHeight, canvas.width, Math.min(imgHeight, canvas.height - renderedHeight)) as ImageData, 0, 0)
         pdf.addImage(page.toDataURL('image/jpeg', 1.0), 'JPEG', 10, 10, a4w, Math.min(a4h, (a4w * page.height) / page.width))
         renderedHeight += imgHeight
         if (renderedHeight < canvas.height) {
@@ -121,12 +119,12 @@ const generatePdfByCanvasHandler = async (canvas: HTMLCanvasElement) => {
 }
 
 // 清理临时元素，避免内存泄露
-const cleanup = () => {
+function cleanup() {
     const tempElements = document.querySelectorAll('.divRemove')
     tempElements.forEach((el) => el.remove())
 }
 
-export const htmlPdf = async (title: string, html: HTMLElement, htmlChildren: HTMLElement[]) => {
+export async function htmlPdf(title: string, html: HTMLElement, htmlChildren: HTMLElement[]) {
     pdfSplitPageHandler(Array.from(htmlChildren))
     const canvas = await generateCanvasByHTMLHandler(html)
     const pdf = await generatePdfByCanvasHandler(canvas)

@@ -4,30 +4,30 @@
         "target": "ESNext",
         /* console属于DOM */
         "lib": ["ESNext", "DOM"],
+        "moduleDetection": "force",
         "module": "ESNext",
-        "skipLibCheck": true,
 
         /* Bundler mode, moduleResolution */
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
-        "isolatedModules": true,
-        "moduleDetection": "force",
-        "noEmit": true,
 
         /* Linting */
         "strict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "alwaysStrict": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true,
-        "noUncheckedSideEffectImports": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "strictBindCallApply": true,
-        "strictPropertyInitialization": true,
-        "noImplicitThis": true,
-        "alwaysStrict": true,
-        "noEmitOnError": true
+        "noEmit": true,
+        "noEmitOnError": true,
+        "isolatedModules": true,
+        "skipLibCheck": true,
+        "noUncheckedSideEffectImports": true
     },
     "include": ["vite.config.ts"]
 }
