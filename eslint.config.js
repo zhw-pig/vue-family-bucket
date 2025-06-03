@@ -37,9 +37,10 @@ export default antfu({
         'no-console': 'off',
         'no-debugger': 'error',
         '@typescript-eslint/no-explicit-any': 'error', // 禁止显式使用 any 类型
-        // indent: 'off', // 关闭 ESLint 基础缩进规则
         // 引出的问题：Key "rules": Key "ts/indent": Could not find "indent" in plugin "ts". Did you mean "@/indent"?
         '@/indent': ['error', 4], // 强制 4 空格缩进,
         'vue/html-indent': ['error', 4], // 调整 Vue 模板的缩进
+        'vue/script-indent': ['error', 4], // Vue <script> 块缩进
+        indent: 'off', // 关闭 ESLint 基础缩进规则（避免冲突）
     },
 })
