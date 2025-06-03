@@ -41,5 +41,7 @@ export default antfu({
         '@/indent': 'off', // 关闭 TypeScript 的独立缩进规则
         'vue/script-indent': 'off', // Vue <script> 缩进
         'vue/html-indent': 'off', // Vue <template> 缩进
+        // } 后面代码可以在一行，也可以换行
+        'style/brace-style': 'off', // } 换行规则
     },
 })

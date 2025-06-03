@@ -114,7 +114,7 @@
             if (JSON.stringify(newVal) !== JSON.stringify(fileList.value)) {
                 fileList.value = [...newVal]
             }
-        }
+        },
     )
 </script>
 

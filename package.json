@@ -24,7 +24,7 @@
         "build": "vue-tsc -b && vite build",
         "build:prod": "vite build --mode production",
         "preview": "vite preview",
-        "lint:eslint": "eslint . --ext .vue,.ts,.js,.jsx,.mjs --fix",
+        "lint:eslint": "eslint . --ext .vue,.ts,.js,.jsx,.mjs",
         "lint:stylelint": "stylelint src/**/*.{css,scss,vue} --fix",
         "batch:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
         "prepare": "husky  install",
