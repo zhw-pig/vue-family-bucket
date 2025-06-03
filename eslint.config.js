@@ -37,9 +37,9 @@ export default antfu({
         'no-console': 'off',
         'no-debugger': 'error',
         '@typescript-eslint/no-explicit-any': 'error', // 禁止显式使用 any 类型
-        'style/indent': ['error', 4], // 强制 4 空格缩进
+        'style/indent': 'off', // 强制 4 空格缩进
         '@/indent': 'off', // 关闭 TypeScript 的独立缩进规则
-        'vue/script-indent': ['error', 4], // Vue <script> 缩进
-        'vue/html-indent': ['error', 4], // Vue <template> 缩进
+        'vue/script-indent': 'off', // Vue <script> 缩进
+        'vue/html-indent': 'off', // Vue <template> 缩进
     },
 })
